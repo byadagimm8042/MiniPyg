@@ -4,6 +4,14 @@ Deploy the **kids-investment-app-import** project (landing page, MiniPyg video, 
 
 ---
 
+## Fix: "Could not read package.json" (ENOENT)
+
+If the build fails with **ENOENT: no such file or directory, open '/vercel/path0/package.json'**, Vercel is building from the **repo root** instead of **kids-investment-app-import**.
+
+**Fix:** In Vercel → **Project** → **Settings** → **General** → **Root Directory**: set to **`kids-investment-app-import`** and save. Then **Redeploy** (Deployments → … → Redeploy).
+
+---
+
 ## 1. Connect GitHub to Vercel
 
 1. Go to **[vercel.com](https://vercel.com)** and sign in (use **Continue with GitHub**).

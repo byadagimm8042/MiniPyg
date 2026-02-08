@@ -6,7 +6,8 @@
     "server": "node server/index.js",
     "client": "cd client && npm start",
     "tunnel": "ngrok http 3003",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "build": "echo Static deploy - no build step"
   },
   "dependencies": {
     "express": "^4.18.2",
