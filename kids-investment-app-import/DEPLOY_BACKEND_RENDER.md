@@ -4,6 +4,12 @@ Deploy the **Express API** (kids-investment-app-import/server) to **Render** and
 
 ---
 
+## Keep backend local until app is ready
+
+**Use the backend locally** (run `node server/index.js` or `npm run server` from `kids-investment-app-import`) until the application is **completely ready**. Deploy to Render only when you are ready for production. The steps below are for when you decide to deploy.
+
+---
+
 ## 1. Create a Web Service on Render
 
 1. Go to **[render.com](https://render.com)** and sign in (or sign up with GitHub).

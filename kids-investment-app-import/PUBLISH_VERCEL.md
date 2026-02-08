@@ -12,6 +12,14 @@ If the build fails with **ENOENT: no such file or directory, open '/vercel/path0
 
 ---
 
+## Fix: "No Output Directory named 'dist' found"
+
+If the build fails with **"No Output Directory named 'dist' found after the Build completed"**, Vercel is expecting a `dist` folder, but this project is a **static** deploy (HTML/JS only, no build output).
+
+**Fix:** In Vercel → **Project** → **Settings** → **Build and Deployment** → **Output Directory**: set to **`.`** (a single dot). That tells Vercel to use the project root as the output, so your HTML files (landing-page.html, minipyg-video.html, etc.) are served. Save and **Redeploy**.
+
+---
+
 ## 1. Connect GitHub to Vercel
 
 1. Go to **[vercel.com](https://vercel.com)** and sign in (use **Continue with GitHub**).

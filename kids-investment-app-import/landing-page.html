@@ -41,6 +41,8 @@
         
         .footer { background: #2c3e50; color: white; padding: 40px 0; text-align: center; }
         
+        .launching-soon { display: inline-block; background: rgba(255,255,255,0.25); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.4); }
+        
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .features-grid { grid-template-columns: 1fr; }
@@ -50,6 +52,7 @@
 <body>
     <section class="hero">
         <div class="container">
+            <span class="launching-soon">Launching soon</span>
             <h1>💰 KidsFinance</h1>
             <p>Teaching Your Kids Financial Literacy Through Interactive Games & Real-World Simulations</p>
             <a href="#signup" class="cta-btn">Start Free Trial</a>
@@ -199,8 +202,9 @@
             
             alert(`Welcome ${data.parentName}! Your free trial has started. Check your email for next steps.`);
             
-            // Redirect to main app
-            window.location.href = 'http://localhost:3000';
+            // Redirect to main app (same origin in production; localhost when local)
+            const appUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000' : (window.location.origin + '/app');
+            window.location.href = appUrl;
         }
 
         // Smooth scrolling for anchor links
