@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐷 MiniPyg Finance Learning Video</title>
+    <style>
+        body { margin: 0; padding: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-family: Arial, sans-serif; overflow: hidden; }
+        .video-container { width: 100vw; height: 100vh; position: relative; }
+        .scene { position: absolute; width: 100%; height: 100%; display: none; }
+        .scene.active { display: block; }
+        
+        /* App UI Skin */
+        .phone-frame { position: absolute; top: 10%; left: 50%; transform: translateX(-50%); width: 350px; height: 600px; background: #333; border-radius: 30px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .screen { width: 100%; height: 100%; background: white; border-radius: 20px; overflow: hidden; position: relative; }
+        .app-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; text-align: center; font-weight: bold; }
+        .app-content { padding: 20px; height: calc(100% - 60px); overflow-y: auto; }
+        
+        .balance-card { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
+        .balance-amount { font-size: 32px; font-weight: bold; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .menu-item { background: #f8f9fa; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+        .menu-item:hover, .menu-item.clicked { background: #e3f2fd; border-color: #2196F3; transform: scale(1.05); }
+        .menu-icon { font-size: 40px; margin-bottom: 10px; }
+        
+        .learning-outcome { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255,255,255,0.95); padding: 15px; border-radius: 15px; font-weight: bold; color: #333; }
+        
+        .click-indicator { position: absolute; width: 30px; height: 30px; border: 3px solid #ff4444; border-radius: 50%; animation: clickPulse 1s infinite; }
+        
+        @keyframes clickPulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <div class="progress-bar" id="progressBar"></div>
+        
+        <!-- Scene 1: App Introduction -->
+        <div class="scene active" id="scene1">
+            <div class="phone-frame">
+                <div class="screen">
+                    <div class="app-header">💰 KidsFinance</div>
+                    <div class="app-content">
+                        <div style="text-align: center; padding: 40px 20px;">
+                            <div style="font-size: 80px; margin-bottom: 20px;">🐷</div>
+                            <h2>Welcome to KidsFinance!</h2>
+                            <p>Hi! I'm MiniPyg, your finance buddy!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="learning-outcome">📚 Learning: App introduction and character recognition</div>
+        </div>
+        
+        <!-- Scene 2: Dashboard Overview -->
+        <div class="scene" id="scene2">
+            <div class="phone-frame">
+                <div class="screen">
+                    <div class="app-header">💰 My Dashboard</div>
+                    <div class="app-content">
+                        <div class="balance-card">
+                            <div>My Balance</div>
+                            <div class="balance-amount">$25.50</div>
+                        </div>
+                        <div class="menu-grid">
+                            <div class="menu-item" id="earn-btn">
+                                <div class="menu-icon">💼</div>
+                                <div>Earn Money</div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-icon">🏦</div>
+                                <div>Save Money</div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-icon">🛒</div>
+                                <div>Smart Spending</div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-icon">📈</div>
+                                <div>Invest & Grow</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="click-indicator" style="top: 45%; left: 60%;"></div>
+            <div class="learning-outcome">📚 Learning: App navigation and main features overview</div>
+        </div>
+        
+        <!-- Scene 3: Earning Money -->
+        <div class="scene" id="scene3">
+            <div class="phone-frame">
+                <div class="screen">
+                    <div class="app-header">💼 Earn Money</div>
+                    <div class="app-content">
+                        <h3>Choose a task:</h3>
+                        <div class="menu-item clicked" style="margin-bottom: 15px;">
+                            <div class="menu-icon">🧹</div>
+                            <div>Clean Room - $5</div>
+                        </div>
+                        <div class="menu-item" style="margin-bottom: 15px;">
+                            <div class="menu-icon">📚</div>
+                            <div>Study 1 Hour - $3</div>
+                        </div>
+                        <div class="menu-item" style="margin-bottom: 15px;">
+                            <div class="menu-icon">🐕</div>
+                            <div>Walk Dog - $8</div>
+                        </div>
+                        <div style="background: #4CAF50; color: white; padding: 15px; border-radius: 10px; text-align: center; margin-top: 20px;">
+                            ✅ Task Completed! +$5
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="learning-outcome">📚 Learning: Work = Money, Different tasks have different values</div>
+        </div>
+        
+        <!-- Scene 4: Saving Goals -->
+        <div class="scene" id="scene4">
+            <div class="phone-frame">
+                <div class="screen">
+                    <div class="app-header">🏦 My Savings Goals</div>
+                    <div class="app-content">
+                        <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                            <h4>🎮 New Video Game</h4>
+                            <div style="background: #ddd; height: 20px; border-radius: 10px; overflow: hidden;">
+                                <div style="background: #4CAF50; height: 100%; width: 60%; transition: width 2s;"></div>
+                            </div>
+                            <p>$30 of $50 saved (60%)</p>
+                        </div>
+                        <div style="background: #fff3cd; padding: 15px; border-radius: 10px;">
+                            <h4>🚲 New Bicycle</h4>
+                            <div style="background: #ddd; height: 20px; border-radius: 10px; overflow: hidden;">
+                                <div style="background: #ffc107; height: 100%; width: 25%;"></div>
+                            </div>
+                            <p>$50 of $200 saved (25%)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="learning-outcome">📚 Learning: Setting goals, tracking progress, delayed gratification</div>
+        </div>
+        
+        <!-- Scene 5: Smart Spending -->
+        <div class="scene" id="scene5">
+            <div class="phone-frame">
+                <div class="screen">
+                    <div class="app-header">🛒 Smart Spending</div>
+                    <div class="app-content">
+                        <h3>Needs vs Wants Quiz:</h3>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                            <p><strong>🍎 Healthy Lunch</strong></p>
+                            <div style="display: flex; gap: 10px;">
+                                <button style="background: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px; flex: 1;">NEED ✅</button>
+                                <button style="background: #ddd; border: none; padding: 10px; border-radius: 5px; flex: 1;">WANT</button>
+                            </div>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px;">
+                            <p><strong>🎮 Extra Video Game</strong></p>
+                            <div style="display: flex; gap: 10px;">
+                                <button style="background: #ddd; border: none; padding: 10px; border-radius: 5px; flex: 1;">NEED</button>
+                                <button style="background: #ff9800; color: white; border: none; padding: 10px; border-radius: 5px; flex: 1;">WANT ✅</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="learning-outcome">📚 Learning: Critical thinking about purchases, needs vs wants</div>
+        </div>
+        
+        <!-- Scene 6: Investment Growth -->
+        <div class="scene" id="scene6">
+            <div class="phone-frame">
+                <div class="screen">
+                    <div class="app-header">📈 My Investments</div>
+                    <div class="app-content">
+                        <div style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
+                            <div>Portfolio Value</div>
+                            <div style="font-size: 28px; font-weight: bold;">$45.75</div>
+                            <div style="color: #4CAF50;">+$5.75 (14.8%) ↗️</div>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 15px; border-radius: 10px;">
+                            <h4>🍎 Apple Stock</h4>
+                            <p>5 shares • +$3.25</p>
+                        </div>
+                        <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                            <h4>🏦 Savings Account</h4>
+                            <p>$20.00 • +$0.50 interest</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="learning-outcome">📚 Learning: Money can grow over time, compound interest basics</div>
+        </div>
+        
+        <!-- Scene 7: Achievement & Progress -->
+        <div class="scene" id="scene7">
+            <div class="phone-frame">
+                <div class="screen">
+                    <div class="app-header">🏆 Achievements</div>
+                    <div class="app-content">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 80px; margin-bottom: 20px;">🎉</div>
+                            <h2>Congratulations!</h2>
+                            <div style="background: #fff3cd; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                                <strong>🥇 First Saver</strong><br>
+                                Saved your first $10!
+                            </div>
+                            <div style="background: #d4edda; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                                <strong>💼 Hard Worker</strong><br>
+                                Completed 5 earning tasks!
+                            </div>
+                            <div style="background: #e2e3e5; padding: 15px; border-radius: 10px;">
+                                <strong>🧠 Smart Spender</strong><br>
+                                Made 3 smart spending choices!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="learning-outcome">📚 Learning: Goal achievement, positive reinforcement, progress tracking</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" onclick="previousScene()">⏮️ Previous</button>
+        <button class="btn" onclick="togglePlay()" id="playBtn">⏸️ Pause</button>
+        <button class="btn" onclick="nextScene()">⏭️ Next</button>
+        <button class="btn" onclick="restartVideo()">🔄 Restart</button>
+    </div>
+    
+    <script>
+        let currentScene = 1;
+        let totalScenes = 7;
+        let isPlaying = true;
+        let autoPlayInterval;
+        
+        function showScene(sceneNumber) {
+            document.querySelectorAll('.scene').forEach(scene => scene.classList.remove('active'));
+            document.getElementById(`scene${sceneNumber}`).classList.add('active');
+            updateProgressBar();
+        }
+        
+        function nextScene() {
+            if (currentScene < totalScenes) {
+                currentScene++;
+                showScene(currentScene);
+            } else {
+                restartVideo();
+            }
+        }
+        
+        function previousScene() {
+            if (currentScene > 1) {
+                currentScene--;
+                showScene(currentScene);
+            }
+        }
+        
+        function togglePlay() {
+            const btn = document.getElementById('playBtn');
+            if (isPlaying) {
+                clearInterval(autoPlayInterval);
+                btn.textContent = '▶️ Play';
+                isPlaying = false;
+            } else {
+                startAutoPlay();
+                btn.textContent = '⏸️ Pause';
+                isPlaying = true;
+            }
+        }
+        
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                nextScene();
+            }, 4000);
+        }
+        
+        function restartVideo() {
+            currentScene = 1;
+            showScene(currentScene);
+            if (isPlaying) {
+                clearInterval(autoPlayInterval);
+                startAutoPlay();
+            }
+        }
+        
+        function updateProgressBar() {
+            const progress = (currentScene / totalScenes) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        // Narration (text-to-speech simulation)
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.8;
+                utterance.pitch = 1.2;
+                speechSynthesis.speak(utterance);
+            }
+        }
+        
+        // Auto-narrate scenes
+        const sceneNarration = {
+            1: "Welcome to KidsFinance! I'm MiniPyg, your finance learning buddy!",
+            2: "This is your dashboard - see your balance and choose what to learn!",
+            3: "Earn money by completing tasks - work equals money!",
+            4: "Set savings goals and track your progress - delayed gratification pays off!",
+            5: "Learn to spend wisely - distinguish between needs and wants!",
+            6: "Watch your money grow through saving and investing!",
+            7: "Celebrate your achievements - you're becoming financially smart!"
+        };
+        
+        // Scene change listener for narration
+        function showSceneWithNarration(sceneNumber) {
+            showScene(sceneNumber);
+            setTimeout(() => speak(sceneNarration[sceneNumber]), 500);
+        }
+        
+        // Override functions to include narration
+        const originalNextScene = nextScene;
+        nextScene = function() {
+            originalNextScene();
+            if (currentScene <= totalScenes) {
+                setTimeout(() => speak(sceneNarration[currentScene]), 500);
+            }
+        };
+        
+        // Initialize
+        updateProgressBar();
+        startAutoPlay();
+        setTimeout(() => speak(sceneNarration[1]), 1000);
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight': nextScene(); break;
+                case 'ArrowLeft': previousScene(); break;
+                case ' ': e.preventDefault(); togglePlay(); break;
+                case 'r': restartVideo(); break;
+            }
+        });
+    </script>
+</body>
+</html>

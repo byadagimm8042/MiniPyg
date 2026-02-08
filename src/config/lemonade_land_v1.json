@@ -1,0 +1,180 @@
+{
+  "version": "1.0",
+  "world": {
+    "id": "lemonade_land_v1",
+    "title": "Lemonade Land",
+    "age_band": "8-10",
+    "description": "Build your lemonade stand, set a price, and learn how profits work.",
+    "currency": {
+      "symbol": "$",
+      "minor_unit": "cents"
+    }
+  },
+
+  "economy": {
+    "start_cash_cents": 500,
+    "base_demand": 18,
+    "price_sensitivity": 4,
+    "weather_factor_range": [-3, 3],
+    "fixed_daily_cost_cents": 0,
+
+    "pricing": {
+      "min_price_cents": 50,
+      "max_price_cents": 300,
+      "step_cents": 25,
+      "default_price_cents": 150
+    },
+
+    "capacity": {
+      "base_capacity": 25
+    },
+
+    "unit_costs_cents": {
+      "cup": 5,
+      "lemon": 8,
+      "sugar": 4,
+      "ice": 3
+    }
+  },
+
+  "builder": {
+    "grid": { "rows": 6, "cols": 6 },
+    "starting_tiles": [
+      { "item_id": "stand_basic", "x": 2, "y": 2 }
+    ],
+    "items": [
+      {
+        "id": "stand_basic",
+        "name": "Stand",
+        "type": "core",
+        "cost_cents": 0,
+        "max_level": 1,
+        "effects": [
+          { "effect": "capacity_add", "value": 0 }
+        ]
+      },
+      {
+        "id": "sign_basic",
+        "name": "Sign",
+        "type": "marketing",
+        "cost_cents": 150,
+        "max_level": 2,
+        "effects_by_level": {
+          "1": [{ "effect": "demand_add", "value": 2 }],
+          "2": [{ "effect": "demand_add", "value": 4 }]
+        }
+      },
+      {
+        "id": "table_basic",
+        "name": "Extra Table",
+        "type": "capacity",
+        "cost_cents": 200,
+        "max_level": 2,
+        "effects_by_level": {
+          "1": [{ "effect": "capacity_add", "value": 5 }],
+          "2": [{ "effect": "capacity_add", "value": 10 }]
+        }
+      },
+      {
+        "id": "cooler_basic",
+        "name": "Cooler",
+        "type": "ops",
+        "cost_cents": 250,
+        "max_level": 2,
+        "effects_by_level": {
+          "1": [{ "effect": "unit_cost_discount_cents", "value": 1 }],
+          "2": [{ "effect": "unit_cost_discount_cents", "value": 2 }]
+        }
+      },
+      {
+        "id": "umbrella_basic",
+        "name": "Umbrella",
+        "type": "marketing",
+        "cost_cents": 180,
+        "max_level": 1,
+        "effects": [{ "effect": "weather_protection", "value": 1 }]
+      },
+      {
+        "id": "bulk_box",
+        "name": "Bulk Supplies Box",
+        "type": "ops",
+        "cost_cents": 300,
+        "max_level": 1,
+        "effects": [{ "effect": "unit_cost_discount_cents", "value": 2 }]
+      }
+    ]
+  },
+
+  "day_simulation": {
+    "formula": "cupsSold = clamp(round(base_demand + weather + demandBoost - price_sensitivity*(price_cents/100)), 0, capacity); profit = revenue - cost",
+    "notes": "Keep it simple and consistent. Kids should understand that higher prices can reduce demand.",
+    "max_days_per_session": 7
+  },
+
+  "wallet": {
+    "jars": [
+      { "id": "save", "label": "Save", "default_split_pct": 50 },
+      { "id": "spend", "label": "Spend", "default_split_pct": 40 },
+      { "id": "give", "label": "Give", "default_split_pct": 10 }
+    ],
+    "reward_xp_per_day_run": 5,
+    "reward_xp_per_mission": 15
+  },
+
+  "missions": [
+    {
+      "id": "m1_profit_once",
+      "title": "Make a Profit",
+      "goal": { "type": "profit_in_day", "min_profit_cents": 200 },
+      "reward": { "xp": 15, "badge_id": "badge_profit" },
+      "hint": "Try a fair price and make sure demand stays strong."
+    },
+    {
+      "id": "m2_find_best_price",
+      "title": "Find Your Best Price",
+      "goal": { "type": "run_days", "min_days": 3 },
+      "reward": { "xp": 15, "badge_id": "badge_pricer" },
+      "hint": "Test different prices and compare your profits."
+    },
+    {
+      "id": "m3_buy_an_upgrade",
+      "title": "Upgrade Your Stand",
+      "goal": { "type": "buy_upgrade", "item_id_any": true },
+      "reward": { "xp": 15, "badge_id": "badge_builder" },
+      "hint": "Upgrades can help you sell more or spend less."
+    },
+    {
+      "id": "m4_save_goal",
+      "title": "Hit a Savings Goal",
+      "goal": { "type": "save_jar_balance", "min_balance_cents": 500 },
+      "reward": { "xp": 15, "badge_id": "badge_saver" },
+      "hint": "Put some of your profits into the Save jar."
+    },
+    {
+      "id": "m5_give_once",
+      "title": "Give to Help",
+      "goal": { "type": "give_jar_contribution", "min_contribution_cents": 100 },
+      "reward": { "xp": 15, "badge_id": "badge_giver" },
+      "hint": "Giving is a money habit too. Even a little counts."
+    }
+  ],
+
+  "badges": [
+    { "id": "badge_profit", "name": "Profit Starter" },
+    { "id": "badge_pricer", "name": "Smart Pricer" },
+    { "id": "badge_builder", "name": "Stand Builder" },
+    { "id": "badge_saver", "name": "Saver" },
+    { "id": "badge_giver", "name": "Giver" }
+  ],
+
+  "reflection_prompts": [
+    {
+      "id": "r1_price_tradeoff",
+      "prompt": "What happened when you raised your price? What happened when you lowered it?"
+    },
+    {
+      "id": "r2_upgrade_effect",
+      "prompt": "Which upgrade helped you most and why?"
+    }
+  ]
+}
