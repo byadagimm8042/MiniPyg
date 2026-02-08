@@ -30,6 +30,16 @@
         @keyframes clickPulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
         @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .controls { display: flex; justify-content: center; align-items: center; gap: 12px; padding: 16px; flex-wrap: wrap; background: rgba(0,0,0,0.2); position: absolute; bottom: 0; left: 0; right: 0; }
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: bold; background: #fff; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: background 0.2s, transform 0.1s; }
+        .btn:hover { background: #f0f0f0; transform: scale(1.02); }
+        .btn:active { transform: scale(0.98); }
+        .btn-play { background: #4CAF50; color: white; }
+        .btn-play:hover { background: #45a049; }
+        .btn-pause { background: #2196F3; color: white; }
+        .btn-pause:hover { background: #1976D2; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
     </style>
 </head>
 <body>
@@ -225,7 +235,8 @@
     
     <div class="controls">
         <button class="btn" onclick="previousScene()">⏮️ Previous</button>
-        <button class="btn" onclick="togglePlay()" id="playBtn">⏸️ Pause</button>
+        <button class="btn btn-play" id="playBtn" onclick="playVideo()" title="Play">▶️ Play</button>
+        <button class="btn btn-pause" id="pauseBtn" onclick="pauseVideo()" title="Pause">⏸️ Pause</button>
         <button class="btn" onclick="nextScene()">⏭️ Next</button>
         <button class="btn" onclick="restartVideo()">🔄 Restart</button>
     </div>
@@ -258,17 +269,34 @@
             }
         }
         
-        function togglePlay() {
-            const btn = document.getElementById('playBtn');
+        function playVideo() {
+            if (!isPlaying) {
+                startAutoPlay();
+                isPlaying = true;
+                updatePlayPauseButtons();
+            }
+        }
+        
+        function pauseVideo() {
             if (isPlaying) {
                 clearInterval(autoPlayInterval);
-                btn.textContent = '▶️ Play';
                 isPlaying = false;
-            } else {
-                startAutoPlay();
-                btn.textContent = '⏸️ Pause';
-                isPlaying = true;
+                updatePlayPauseButtons();
             }
+        }
+        
+        function togglePlay() {
+            if (isPlaying) pauseVideo();
+            else playVideo();
+        }
+        
+        function updatePlayPauseButtons() {
+            const playBtn = document.getElementById('playBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            playBtn.disabled = isPlaying;
+            pauseBtn.disabled = !isPlaying;
+            playBtn.title = isPlaying ? 'Playing' : 'Play';
+            pauseBtn.title = isPlaying ? 'Pause' : 'Paused';
         }
         
         function startAutoPlay() {
@@ -291,46 +319,18 @@
             document.getElementById('progressBar').style.width = progress + '%';
         }
         
-        // Narration (text-to-speech simulation)
-        function speak(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = 0.8;
-                utterance.pitch = 1.2;
-                speechSynthesis.speak(utterance);
-            }
+        // Narration disabled – no audio playback
+        function speak(text) { /* disabled */ }
+        
+        // Stop any speech synthesis immediately and keep it stopped
+        if ('speechSynthesis' in window) {
+            speechSynthesis.cancel();
         }
-        
-        // Auto-narrate scenes
-        const sceneNarration = {
-            1: "Welcome to KidsFinance! I'm MiniPyg, your finance learning buddy!",
-            2: "This is your dashboard - see your balance and choose what to learn!",
-            3: "Earn money by completing tasks - work equals money!",
-            4: "Set savings goals and track your progress - delayed gratification pays off!",
-            5: "Learn to spend wisely - distinguish between needs and wants!",
-            6: "Watch your money grow through saving and investing!",
-            7: "Celebrate your achievements - you're becoming financially smart!"
-        };
-        
-        // Scene change listener for narration
-        function showSceneWithNarration(sceneNumber) {
-            showScene(sceneNumber);
-            setTimeout(() => speak(sceneNarration[sceneNumber]), 500);
-        }
-        
-        // Override functions to include narration
-        const originalNextScene = nextScene;
-        nextScene = function() {
-            originalNextScene();
-            if (currentScene <= totalScenes) {
-                setTimeout(() => speak(sceneNarration[currentScene]), 500);
-            }
-        };
         
         // Initialize
         updateProgressBar();
         startAutoPlay();
-        setTimeout(() => speak(sceneNarration[1]), 1000);
+        updatePlayPauseButtons();
         
         // Keyboard controls
         document.addEventListener('keydown', (e) => {
